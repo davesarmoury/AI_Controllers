@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>la_z_bot_bringup</name>
+  <version>0.0.0</version>
+  <description>The la_z_bot_bringup package</description>
+
+  <maintainer email="davesarmoury@gmail.com">Dave Niewinski</maintainer>
+
+  <license>CC-BY-3</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <exec_depend>robot_localization</exec_depend>
+</package>
