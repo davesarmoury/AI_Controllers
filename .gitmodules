@@ -1,0 +1,6 @@
+[submodule "bunker_ros"]
+	path = bunker_ros
+	url = git@github.com:davesarmoury/bunker_ros.git
+[submodule "bunker_extras"]
+	path = bunker_extras
+	url = git@github.com:davesarmoury/bunker_extras.git
