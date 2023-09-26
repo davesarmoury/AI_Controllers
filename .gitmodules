@@ -4,3 +4,6 @@
 [submodule "bunker_extras"]
 	path = bunker_extras
 	url = git@github.com:davesarmoury/bunker_extras.git
+[submodule "ugv_sdk"]
+	path = ugv_sdk
+	url = git@github.com:agilexrobotics/ugv_sdk.git
