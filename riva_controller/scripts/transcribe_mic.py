@@ -45,10 +45,11 @@ def main() -> None:
         riva.client.audio_io.list_input_devices()
         return
 
-    inter_pub = rospy.Publisher('intermediate', String, queue_size=10)
-    final_pub = rospy.Publisher('final', String, queue_size=10)
     rospy.init_node('riva_asr', anonymous=True)
+    inter_pub = rospy.Publisher('~intermediate', String, queue_size=10)
+    final_pub = rospy.Publisher('~final', String, queue_size=10)
 
+    rospy.spin()
     auth = riva.client.Auth(args.ssl_cert, args.use_ssl, args.server)
     asr_service = riva.client.ASRService(auth)
     config = riva.client.StreamingRecognitionConfig(
