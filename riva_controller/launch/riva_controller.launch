@@ -1,0 +1,4 @@
+<launch>
+  <node pkg="riva_controller" type="transcribe_mic.py" name="transcribe_mic" />
+  <node pkg="riva_controller" type="command_handler.py" name="command_handler" />
+</launch>
