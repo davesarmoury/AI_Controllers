@@ -46,10 +46,10 @@ def main() -> None:
         return
 
     rospy.init_node('riva_asr', anonymous=True)
-    inter_pub = rospy.Publisher('~intermediate', String, queue_size=10)
-    final_pub = rospy.Publisher('~final', String, queue_size=10)
 
-    rospy.spin()
+    inter_pub = rospy.Publisher('intermediate', String, queue_size=10)
+    final_pub = rospy.Publisher('final', String, queue_size=10)
+
     auth = riva.client.Auth(args.ssl_cert, args.use_ssl, args.server)
     asr_service = riva.client.ASRService(auth)
     config = riva.client.StreamingRecognitionConfig(
@@ -65,6 +65,7 @@ def main() -> None:
         ),
         interim_results=True,
     )
+
     riva.client.add_word_boosting_to_config(config, args.boosted_lm_words, args.boosted_lm_score)
     with riva.client.audio_io.MicrophoneStream(
         args.sample_rate_hz,

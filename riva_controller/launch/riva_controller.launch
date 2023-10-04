@@ -1,6 +1,5 @@
 <launch>
-  <node pkg="riva_controller" type="transcribe_mic.py" name="riva_asr" />
   <node pkg="riva_controller" type="command_handler.py" name="riva_command_handler">
-    <remap from="commands" to="/riva_asr/final" />
+    <remap from="commands" to="/intermediate" />
   </node>
 </launch>
