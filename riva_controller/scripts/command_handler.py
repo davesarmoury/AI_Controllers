@@ -9,12 +9,19 @@ x_med = 1.0
 x_fast = 1.5
 yaw_rate = 1.0
 
+hz = 10
+
+x = 0.0
+yaw = 0.0
+
 def callback(msg):
-    global pub
+    global pub, x, yaw
+
     command = msg.data.lower()
 
     if "stop" in command:
-        pub.publish(Twist())
+        x = 0.0
+        z = 0.0
     else:
         if "fast" in command:
             x = x_fast
@@ -27,17 +34,22 @@ def callback(msg):
         if "left" in command:
             yaw = yaw_rate
 
-        twist_msg = Twist()
-        twist_msg.linear.x = x
-        twist_msg.angular.z = yaw
-        pub.publish(twist_msg)
-
 def main():
-    global pub
+    global pub, x, yaw
+
     rospy.init_node("riva_command_handler", anonymous=True)
     pub = rospy.Publisher("cmd_vel", Twist, queue_size=10)
     rospy.Subscriber("commands", String, callback)
-    rospy.spin()
+
+    rate = rospy.Rate(hz)
+    while not rospy.is_shutdown():
+        twist_msg = Twist()
+
+        twist_msg.linear.x = x
+        twist_msg.angular.z = yaw
+
+        pub.publish(twist_msg)
+        rate.sleep()
 
 if __name__ == '__main__':
     try:
