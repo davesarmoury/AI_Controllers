@@ -33,6 +33,8 @@ def callback(msg):
             yaw = -yaw_rate
         if "left" in command:
             yaw = yaw_rate
+        if "straight" in command:
+            yaw = 0
 
 def main():
     global pub, x, yaw
