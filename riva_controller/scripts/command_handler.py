@@ -4,7 +4,7 @@ import rospy
 from std_msgs.msg import String
 from geometry_msgs.msg import Twist
 
-x_slow = 0.5
+x_slow = 0.4
 x_med = 1.0
 x_fast = 1.5
 yaw_rate = 1.0
@@ -21,7 +21,7 @@ def callback(msg):
 
     if "stop" in command:
         x = 0.0
-        z = 0.0
+        yaw = 0.0
     else:
         if "fast" in command:
             x = x_fast
@@ -29,6 +29,8 @@ def callback(msg):
             x = x_med
         if "slow" in command:
             x = x_slow
+        if "turn" in command:
+            x = 0.0
         if "right" in command:
             yaw = -yaw_rate
         if "left" in command:

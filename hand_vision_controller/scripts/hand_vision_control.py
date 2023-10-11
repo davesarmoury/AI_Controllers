@@ -11,7 +11,7 @@ device = "cuda:0"
 threshold = 0.5
 
 colours = {"fast": (255, 0, 0), "medium": (255, 255, 0), "slow": (0, 255, 0), "left": (165, 255, 0), "right": (255, 165, 0)}
-x_slow = 0.5
+x_slow = 0.4
 x_med = 1.0
 x_fast = 1.5
 yaw = 1.0
@@ -21,7 +21,7 @@ def image_cb(msg):
 
     cv_image = cv_bridge.imgmsg_to_cv2(msg, desired_encoding="bgr8")
 
-    cv_image = cv2.flip(cv_image, 1)
+#    cv_image = cv2.flip(cv_image, 1)
 
     results = yolo.predict(
         source = cv_image,
@@ -47,14 +47,19 @@ def image_cb(msg):
     cmd_msg = Twist()
     if "fast" in actions:
         cmd_msg.linear.x = x_fast
-    if "medium" in actions:
+    elif "medium" in actions:
         cmd_msg.linear.x = x_med
-    if "slow" in actions:
+    elif "slow" in actions:
         cmd_msg.linear.x = x_slow
+    else:
+        cmd_msg.linear.x = 0.0
+
     if "left" in actions:
-        cmd_msg.angular.z = yaw
-    if "right" in actions:
         cmd_msg.angular.z = -yaw
+    elif "right" in actions:
+        cmd_msg.angular.z = yaw
+    else:
+        cmd_msg.angular.z = 0.0
 
     cmd_pub.publish(cmd_msg)
     img_pub.publish(cv_bridge.cv2_to_imgmsg(cv_image, encoding="rgb8"))
